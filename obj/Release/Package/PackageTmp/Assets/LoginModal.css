@@ -1,0 +1,73 @@
+﻿@media (min-width: 576px) {
+    .LoginModal .modal-dialog {
+        max-width: 400px;
+    }
+    .LoginModal .modal-content {
+        padding: 1rem;
+    }
+}
+.LoginModal .modal-content {
+    padding: 20px 45px;
+}
+
+.LoginModal .modal-header .close {
+    margin-top: -1.5rem;
+}
+
+.LoginModal .form-title {
+    margin: -2rem 0rem 2rem;
+}
+
+.LoginModal .btn-round {
+    border-radius: 3rem;
+}
+
+.LoginModal .delimiter {
+    padding: 1rem;
+}
+
+.LoginModal .social-buttons .btn {
+    margin: 0 0.5rem 1rem;
+}
+
+.LoginModal .signup-section {
+    padding: 0.3rem 0rem;
+}
+/*--------------------------------------*/
+@media (min-width: 576px) {
+    .RegisterModal .modal-dialog {
+        max-width: 400px;
+    }
+
+    .RegisterModal .modal-content {
+        padding: 1rem;
+    }
+}
+
+.RegisterModal .modal-content {
+    padding: 20px 45px;
+}
+
+.RegisterModal .modal-header .close {
+    margin-top: -1.5rem;
+}
+
+.RegisterModal .form-title {
+    margin: -2rem 0rem 2rem;
+}
+
+.RegisterModal .btn-round {
+    border-radius: 3rem;
+}
+
+.RegisterModal .delimiter {
+    padding: 1rem;
+}
+
+.RegisterModal .social-buttons .btn {
+    margin: 0 0.5rem 1rem;
+}
+
+.RegisterModal .signup-section {
+    padding: 0.3rem 0rem;
+}

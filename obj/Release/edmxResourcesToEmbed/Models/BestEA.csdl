@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BestEAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="dbBestEA" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admin" EntityType="BestEAModel.Admin" />
+    <EntitySet Name="Cart" EntityType="BestEAModel.Cart" />
+    <EntitySet Name="Member" EntityType="BestEAModel.Member" />
+    <EntitySet Name="Order" EntityType="BestEAModel.Order" />
+    <EntitySet Name="Product" EntityType="BestEAModel.Product" />
+    <AssociationSet Name="FK_Cart_Member_Email" Association="BestEAModel.FK_Cart_Member_Email">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_Order_OG" Association="BestEAModel.FK_Cart_Order_OG">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_Product_PID" Association="BestEAModel.FK_Cart_Product_PID">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Pwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="cid" />
+    </Key>
+    <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderGuid" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PPrice" Type="Decimal" Nullable="false" Precision="20" Scale="0" />
+    <Property Name="Amont" Type="Int32" Nullable="false" />
+    <Property Name="Sure" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Member" Relationship="BestEAModel.FK_Cart_Member_Email" FromRole="Cart" ToRole="Member" />
+    <NavigationProperty Name="Order" Relationship="BestEAModel.FK_Cart_Order_OG" FromRole="Cart" ToRole="Order" />
+    <NavigationProperty Name="Product" Relationship="BestEAModel.FK_Cart_Product_PID" FromRole="Cart" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Pwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Enable" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cart" Relationship="BestEAModel.FK_Cart_Member_Email" FromRole="Member" ToRole="Cart" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderGuid" />
+    </Key>
+    <Property Name="OrderGuid" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="20" Scale="0" />
+    <Property Name="OConfirm" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cart" Relationship="BestEAModel.FK_Cart_Order_OG" FromRole="Order" ToRole="Cart" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="PID" />
+    </Key>
+    <Property Name="PID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PPrice" Type="Decimal" Nullable="false" Precision="20" Scale="0" />
+    <Property Name="Pair" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateRange" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Lever" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="IRR" Type="Decimal" Precision="20" Scale="2" />
+    <Property Name="ProductImg" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Categories" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cart" Relationship="BestEAModel.FK_Cart_Product_PID" FromRole="Product" ToRole="Cart" />
+  </EntityType>
+  <Association Name="FK_Cart_Member_Email">
+    <End Type="BestEAModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="BestEAModel.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_Order_OG">
+    <End Type="BestEAModel.Order" Role="Order" Multiplicity="0..1" />
+    <End Type="BestEAModel.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderGuid" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="OrderGuid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_Product_PID">
+    <End Type="BestEAModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="BestEAModel.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="PID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

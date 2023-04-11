@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BestEA.Models.Cart>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cart</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amont)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sure)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.Pwd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.PName)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amont)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.Pwd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.PName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.cid }) |
+                @Html.ActionLink("Details", "Details", new { id=item.cid }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.cid })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
